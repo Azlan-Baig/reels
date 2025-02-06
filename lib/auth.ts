@@ -39,4 +39,28 @@ export const authOptions: NextAuthOptions = {
       },
     }),
   ],
+  callbacks: {
+    //
+    async jwt({ token, user }) {
+      if (user) {
+        token.id = user.id;
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      if (session.user) {
+        session.user.id = token.id as string;
+      }
+      return session;
+    },
+  },
+  pages : {
+    signIn: "/login",
+    error: "/login",
+  },
+  session: {
+    // By default sessions work with database and there is no need of jwt callback, but when our sessions strategy is jwt we need jwt callback.
+    strategy: "jwt",
+  },
+  secret : process.env.NEXTAUTH_SECRET
 };
