@@ -61,6 +61,7 @@ export const authOptions: NextAuthOptions = {
   session: {
     // By default sessions work with database and there is no need of jwt callback, but when our sessions strategy is jwt we need jwt callback.
     strategy: "jwt",
+    maxAge: 30 * 24 * 60 * 60,
   },
   secret : process.env.NEXTAUTH_SECRET
 };
