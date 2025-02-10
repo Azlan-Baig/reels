@@ -4,6 +4,7 @@ import bcrypt from "bcryptjs";
 export interface IUser {
   email: string;
   password: string;
+  role : "admin" | "user";
   _id?: mongoose.Types.ObjectId;
   createdAt?: Date;
   updatedAt?: Date;
