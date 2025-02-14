@@ -22,14 +22,9 @@ export default withAuth(
         }
         if (
             pathname === "/" ||
-            pathname.startsWith("/api/products") ||
-            pathname.startsWith("/products")
+            pathname.startsWith("/api/videos") 
           ) {
             return true;
-          }
-        // Admin routes require admin role
-        if (pathname.startsWith("/admin")) {
-            return token?.role === "admin";
           }
         // All other route require authentication.
         return !!token;
