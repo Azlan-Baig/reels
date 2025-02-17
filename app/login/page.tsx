@@ -1,11 +1,20 @@
 "use client";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useNotification } from "../components/Notification";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { signIn } from "next-auth/react";
 function Login() {
   const router = useRouter();
+  const pathname = usePathname();
+  console.log(pathname);
+  
+  const searchParams = useSearchParams();
+  console.log(searchParams.get(''));
+  
+  const callbackUrl = searchParams.get("callbackUrl");
+  
+  
   const { showNotification } = useNotification();
     const formik = useFormik({
       initialValues: {
@@ -22,6 +31,7 @@ function Login() {
 
       }),
       onSubmit: async (values) => {
+       console.log("CallBack",callbackUrl);
         try {
           const res = await signIn("credentials", {
             email: values.email,
@@ -33,7 +43,7 @@ function Login() {
             throw new Error(res.error);
           }
           showNotification("Login successful!", "success");
-          router.push("/");
+          router.push(callbackUrl || "/");
         } catch (error) {
           showNotification(
             error instanceof Error ? error.message : "Registration failed",

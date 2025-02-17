@@ -35,15 +35,17 @@ export default function FileUpload({
     const percentComplete = (evt.loaded / evt.total) * 100;
     onProgress(Math.round(percentComplete));
   };
-  
+}
   const handleUpload = () => {
     setUploading(true);
     setError(null);  };
 
   const validateFile = (file : File) => {
-    if(fileType === 'video' && file.type !== 'video/') {
-      setError("Please upload a video file");
-      return false;
+    if (fileType === "video") {
+      if (!file.type.startsWith("video/")) {
+        setError("Please upload a valid video file");
+        return false;
+      }
     }
     if(file.size > 100 * 1024 * 1024) {
       setError("Please upload a file less than 100MB");
@@ -59,7 +61,7 @@ export default function FileUpload({
       setError("File size must be less than 5MB");
       return false;
     }
-    return false;
+    return true;
    }
 
   }
@@ -94,5 +96,4 @@ export default function FileUpload({
         }
     </div>
   );
-}
-}
+  }

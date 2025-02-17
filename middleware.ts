@@ -2,7 +2,7 @@ import withAuth from "next-auth/middleware";
 import { NextResponse } from "next/server";
 
 export default withAuth(
-  function middleware() {
+  function middleware(req) {
     return NextResponse.next();
   },
   {
@@ -42,6 +42,6 @@ export const config = {
        * - favicon.ico (favicon file)
        * - public folder
        */
-      // "/((?!_next/static|_next/image|favicon.ico).*)",
+      "/((?!_next/static|_next/image|favicon.ico).*)",
     ],
   };
