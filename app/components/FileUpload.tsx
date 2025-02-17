@@ -64,11 +64,9 @@ export default function FileUpload({
 
   }
   return (
-    <div className="App">
-      <h1>ImageKit Next.js quick start</h1>
-
-        <p>Upload an image with advanced options</p>
+    <div className="space-y-2">
         <IKUpload
+          fileName={fileType === "video" ? "video" : "image"}
           useUniqueFileName={true}
           validateFile={validateFile}
           onError={handleError}
